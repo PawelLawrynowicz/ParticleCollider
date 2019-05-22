@@ -5,13 +5,15 @@ public abstract class RigidBody {
     protected double xVelocity, yVelocity, velocity;
     protected int radius;
     protected int particleID;
-    protected static Color DEFAULT_PARTICLE_COLOR = Color.RED;
+    protected int obstacleSizeIterator = 0;
+    protected int collisionCounter = 0;
 
 
-
-    public abstract void draw(Graphics g, Color userColor);
     public abstract void draw(Graphics g);
-    public abstract void move();
+
+    public abstract void changeSize();
+
+
 
     public void setXPosition(double newX) {
         this.x = newX;
@@ -37,10 +39,6 @@ public abstract class RigidBody {
         return y;
     }
 
-    public int getRadius() {
-        return radius;
-    }
-
     public double getXVelocity() {
         return xVelocity;
     }
@@ -48,6 +46,8 @@ public abstract class RigidBody {
     public double getYVelocity() {
         return yVelocity;
     }
+
+    public int getRadius() { return radius; }
 }
 
 

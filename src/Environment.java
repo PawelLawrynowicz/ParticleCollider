@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class Environment {
-    int xStart, xEnd, yStart, yEnd;  // Box's bounds (package access)
-    private Color fill, frame;   // Box's filled color (background)
+    int xStart, xEnd, yStart, yEnd;
+    private Color fill, frame;
 
     public Environment(int x, int y, int width, int height, Color fill, Color frame) {
         xStart = x;
@@ -12,7 +12,6 @@ public class Environment {
         this.fill = fill;
         this.frame = frame;
     }
-
 
     public void draw(Graphics g) {
         g.setColor(fill);
