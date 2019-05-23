@@ -13,6 +13,8 @@ public abstract class RigidBody {
 
     public abstract void changeSize();
 
+    public abstract void move();
+
 
 
     public void setXPosition(double newX) {

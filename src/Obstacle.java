@@ -26,4 +26,7 @@ public class Obstacle extends RigidBody {
             radius++;
     }
 
+    public void move(){
+    }
+
 }
