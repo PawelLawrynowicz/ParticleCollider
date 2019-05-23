@@ -12,7 +12,7 @@ public class Simulation extends Window {
     private Environment dataEnvironment;
 
     // Ilość, wielkość oraz prędkość cząstek
-    private int particleCount = 2;
+    private int particleCount = 10;
     private int obstacleCount = 1;
     private int rigidBodyCount = obstacleCount+particleCount;
 
@@ -80,7 +80,7 @@ public class Simulation extends Window {
 
     //Funkcja odpowiadająca za każdy krok symulacji
     public void update() {
-        for (int i = 0; i < obstacleCount; i++) {
+        for (int i = 0; i < particleCount; i++) {
             rigidBodies.get(i).move();
         }
         collisionDetection();
@@ -105,15 +105,10 @@ public class Simulation extends Window {
         for (int i =0 ;i<particleCount;i++){
             for(int j=i+1; j<rigidBodyCount; j++){
 
-                double x1 = rigidBodies.get(i).getXPosition();
-                double y1 = rigidBodies.get(i).getYPosition();
-                double x2 = rigidBodies.get(j).getXPosition();
-                double y2 = rigidBodies.get(j).getYPosition();
-                double xV1 = rigidBodies.get(i).getXVelocity();
-                double yV1 = rigidBodies.get(i).getYVelocity();
-
-                double xV2 = rigidBodies.get(j).getXVelocity();
-                double yV2 = rigidBodies.get(j).getYVelocity();
+                double x2 = rigidBodies.get(i).getXPosition();
+                double y2 = rigidBodies.get(i).getYPosition();
+                double x1 = rigidBodies.get(j).getXPosition();
+                double y1 = rigidBodies.get(j).getYPosition();
 
                 int r1 = rigidBodies.get(i).getRadius();
                 int r2 = rigidBodies.get(j).getRadius();
@@ -121,36 +116,60 @@ public class Simulation extends Window {
                 double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 
                 if(distance - (r1+r2) < 0){
+
                     double collisionVectorY = y2 - y1;
                     double collisionVectorX = x2 - x1;
                     double theta = Math.atan2(collisionVectorY, collisionVectorX);
 
-                    double tempVX2 = -Math.cos(theta) * rigidBodies.get(j).getXVelocity() - Math.sin(theta) * rigidBodies.get(j).getYVelocity();
-                    double tempVY2 = -Math.sin(theta) * rigidBodies.get(j).getXVelocity() + Math.cos(theta) * rigidBodies.get(j).getYVelocity();
+                    double tempVX1 = Math.cos(theta) * rigidBodies.get(i).getXVelocity() + Math.sin(theta) * rigidBodies.get(i).getYVelocity();
+                    double tempVY1 = -Math.sin(theta) * rigidBodies.get(i).getXVelocity() + Math.cos(theta) * rigidBodies.get(i).getYVelocity();
+                    double endVX1, endVY1;
 
-                    double endVX2 = Math.cos(theta) * tempVX2 - Math.sin(theta) * tempVY2;
-                    double endVY2 = Math.sin(theta) * tempVX2 + Math.cos(theta) * tempVY2;
+                    if(r1+r2 <= 2*particleRadius){
 
-                    rigidBodies.get(j).setXVelocity(endVX2);
-                    rigidBodies.get(j).setYVelocity(endVY2);
+                        double tempVX2 = Math.cos(theta) * rigidBodies.get(j).getXVelocity() + Math.sin(theta) * rigidBodies.get(j).getYVelocity();
+                        double tempVY2 = -Math.sin(theta) * rigidBodies.get(j).getXVelocity() + Math.cos(theta) * rigidBodies.get(j).getYVelocity();
 
-                    double tempX = Math.cos(theta) * x2 + Math.sin(theta) * y2;
-                    double tempY = -Math.sin(theta) * x2 + Math.cos(theta) * y2;
+
+                        // Obrócenie układu z powrotem
+                        endVX1 = Math.cos(theta) * tempVX2 - Math.sin(theta) * tempVY1;
+                        endVY1 = Math.sin(theta) * tempVX2 + Math.cos(theta) * tempVY1;
+                        double endVX2 = Math.cos(theta) * tempVX1 - Math.sin(theta) * tempVY2;
+                        double endVY2 = Math.sin(theta) * tempVX1 + Math.cos(theta) * tempVY2;
+
+                        // Przypisanie nowych prędkości
+
+                        rigidBodies.get(j).setXVelocity(endVX2);
+                        rigidBodies.get(j).setYVelocity(endVY2);
+
+                    }
+                    else{
+                        tempVX1 = -tempVX1;
+                        endVX1 = Math.cos(theta) * tempVX1 - Math.sin(theta) * tempVY1;
+                        endVY1 = Math.sin(theta) * tempVX1 + Math.cos(theta) * tempVY1;
+                        rigidBodies.get(i).changeSize();
+                        rigidBodies.get(j).changeSize();
+                    }
+
+                    rigidBodies.get(i).setXVelocity(endVX1);
+                    rigidBodies.get(i).setYVelocity(endVY1);
+
 
                     // Przesuwamy o część wspólną obydwu cząstek
+                    double tempX = Math.cos(theta) * x2 + Math.sin(theta) * y2;
+                    double tempY = -Math.sin(theta) * x2 + Math.cos(theta) * y2;
                     double overlap = r1 + r2 - distance;
                     double newX = tempX + overlap;
 
                     // Obrócenie układu współrzędnych o kąt -theta
+
                     double endX = Math.cos(theta) * newX - Math.sin(theta) * tempY;
                     double endY = Math.sin(theta) * newX + Math.cos(theta) * tempY;
 
                     //Ustawienie cząstek na nowych pozycjach
-                    rigidBodies.get(j).setXPosition(endX);
-                    rigidBodies.get(j).setYPosition(endY);
+                    rigidBodies.get(i).setXPosition(endX);
+                    rigidBodies.get(i).setYPosition(endY);
 
-                    rigidBodies.get(i).changeSize();
-                    rigidBodies.get(j).changeSize();
 
                 }
             }

@@ -7,6 +7,7 @@ public abstract class RigidBody {
     protected int particleID;
     protected int obstacleSizeIterator = 0;
     protected int collisionCounter = 0;
+    protected Color rigidBodyColor;
 
 
     public abstract void draw(Graphics g);
