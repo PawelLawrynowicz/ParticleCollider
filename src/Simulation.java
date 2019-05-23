@@ -13,7 +13,7 @@ public class Simulation extends Window {
 
     // Ilość, wielkość oraz prędkość cząstek
     private int particleCount = 10;
-    private int obstacleCount = 1;
+    private int obstacleCount = 5;
     private int rigidBodyCount = obstacleCount+particleCount;
 
 
@@ -125,7 +125,7 @@ public class Simulation extends Window {
                     double tempVY1 = -Math.sin(theta) * rigidBodies.get(i).getXVelocity() + Math.cos(theta) * rigidBodies.get(i).getYVelocity();
                     double endVX1, endVY1;
 
-                    if(r1+r2 <= 2*particleRadius){
+                    if(j<particleCount){
 
                         double tempVX2 = Math.cos(theta) * rigidBodies.get(j).getXVelocity() + Math.sin(theta) * rigidBodies.get(j).getYVelocity();
                         double tempVY2 = -Math.sin(theta) * rigidBodies.get(j).getXVelocity() + Math.cos(theta) * rigidBodies.get(j).getYVelocity();
