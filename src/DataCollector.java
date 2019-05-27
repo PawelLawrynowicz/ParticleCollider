@@ -1,5 +1,18 @@
 public class DataCollector {
 
-    // XD BEDĘ DUŻO ROBIŁA
+    private int Collisions;
+
+    public DataCollector() {
+
+    }
+
+    public void countCollisions(){
+
+    }
+
+    public void saveToFile(){
+
+    }
+
 
 }
