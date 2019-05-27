@@ -11,6 +11,7 @@ public class Test {
     public static void main(String[] args) throws IOException {
         usingBufferedWritter();
     }
+}
 
     public static void usingBufferedWritter() throws IOException {
         String fileContent = "Hello Learner !! Welcome to howtodoinjava.com.";
