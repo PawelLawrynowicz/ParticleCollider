@@ -6,9 +6,7 @@ import javax.swing.*;
 
 /*
 TO DO
-warunek stopu
 więcej danych do DataCollectora
-automatyczne budowanie
 user input
  */
 
@@ -22,12 +20,12 @@ public class Simulation extends Window {
 
     // Ilość, wielkość oraz prędkość cząstek
     static private int particleCount = 50;
-    static private int obstacleCount = 15;
+    static private int obstacleCount = 1;
     static private int rigidBodyCount = obstacleCount + particleCount;
     static private int destroyedCount = 0;
 
     private int particleRadius = 20;
-    private int obstacleRadius = 2;
+    private int obstacleRadius = 50;
     private double particleVelocity = 5d;
 
     private ArrayList<RigidBody> rigidBodies = new ArrayList<>();
@@ -37,31 +35,8 @@ public class Simulation extends Window {
 
     public Simulation() {
 
-        // Inicjowanie obiektów RigidBody
-        Random generator = new Random();
-        int ID = 0;
-        for (int i = 0; i < particleCount; i++) {
-            double x = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
-            double y = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
-            double angle = generator.nextDouble() * 360;
-            rigidBodies.add(new Particle(x, y, particleRadius, particleVelocity, angle, ID));
-            ID++;
-        }
+        initiateSimulation();
 
-
-
-        ID = 0;
-        for (int i = 0; i < obstacleCount; i++) {
-            double x = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
-            double y = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
-            rigidBodies.add(new Obstacle(x, y, obstacleRadius, ID));
-            ID++;
-        }
-
-        // Inicjowanie teł
-        particleEnvironment = new Environment(0, 0, 1000, 1000, Color.lightGray, Color.black);
-        dataEnvironment = new Environment(1010, 0, 500, 1000, Color.darkGray, Color.black);
-        // Tworzenie panelu do rysowania
         Panel canvas = new Panel();
         this.setLayout(new BorderLayout());
         this.add(canvas);
@@ -81,19 +56,22 @@ public class Simulation extends Window {
                     } catch (InterruptedException ex) {
                         break;
                     }
-                    if(false) {
+                    if(endSimulation()) {
                         DataCollector dataCollector = new DataCollector();
                         try {
                             dataCollector.saveToFile();
                         } catch (IOException ex) {
                             break;
                         }
+                        break;
                     }
                 }
             }
         };
         thread.start();
     }
+
+
 
     //Funkcja odpowiadająca za każdy krok symulacji
     private void update() {
@@ -103,7 +81,31 @@ public class Simulation extends Window {
 
         handleCollision();
         handleRemoval();
-        timeInSec();
+    }
+
+    private void initiateSimulation(){
+
+        Random generator = new Random();
+        int ID = 0;
+        for (int i = 0; i < particleCount; i++) {
+            double x = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
+            double y = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
+            double angle = generator.nextDouble() * 360;
+            rigidBodies.add(new Particle(x, y, particleRadius, particleVelocity, angle, ID));
+            ID++;
+        }
+
+        ID = 0;
+        for (int i = 0; i < obstacleCount; i++) {
+            double x = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
+            double y = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
+            rigidBodies.add(new Obstacle(x, y, obstacleRadius, ID));
+            ID++;
+        }
+
+        // Inicjowanie teł
+        particleEnvironment = new Environment(0, 0, 1000, 1000, Color.lightGray, Color.black);
+        dataEnvironment = new Environment(1010, 0, 500, 1000, Color.darkGray, Color.black);
     }
 
     // Panel do rysowania
@@ -190,8 +192,6 @@ public class Simulation extends Window {
                     //Ustawienie cząstek na nowych pozycjach
                     rigidBodies.get(i).setXPosition(endX);
                     rigidBodies.get(i).setYPosition(endY);
-
-
                 }
             }
         }
@@ -210,7 +210,24 @@ public class Simulation extends Window {
         }
     }
 
-    static public int timeInSec() {runTime++; return runTime/50;}
+    private boolean endSimulation(){
+
+        int totalObstacleRadius=0;
+        for (int i = particleCount; i<rigidBodyCount;i++){
+            totalObstacleRadius += rigidBodies.get(i).getRadius();
+        }
+        if(DataCollector.getCurrentTime() == 120){
+            return true;
+        }
+        else if (particleCount == 0) {
+            return true;
+        }
+        else if(totalObstacleRadius >= 100*obstacleCount){
+            return true;
+        }
+        return false;
+    }
+
     static public int getCollisions() {return collisions;}
     static public int getDestroyed() {return destroyedCount;}
 }

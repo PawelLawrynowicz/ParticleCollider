@@ -4,8 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DataCollector {
-    static public int collisionCount; //ile kolizji z przeszkodą
-    static public int cycleCount; // ile epok
     static private long startTime = System.currentTimeMillis();
 
     static public void draw(Graphics g) { //in dataEnvironment DataCollector.draw();
@@ -23,5 +21,7 @@ public class DataCollector {
         BufferedWriter writer = new BufferedWriter(new FileWriter("Data.txt"));
         writer.write(fileContent);
         writer.close();
-    }
+   }
+
+   public static long getCurrentTime(){return (System.currentTimeMillis() - startTime)/1000;}
 }
