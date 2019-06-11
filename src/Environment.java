@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Environment {
-    int xStart, xEnd, yStart, yEnd;
+    private int xStart, xEnd, yStart, yEnd; //IntelliJ proponował private
     private Color fill, frame;
 
     public Environment(int x, int y, int width, int height, Color fill, Color frame) {

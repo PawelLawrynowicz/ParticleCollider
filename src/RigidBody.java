@@ -4,17 +4,19 @@ public abstract class RigidBody {
     protected double x, y;
     protected double xVelocity, yVelocity, velocity;
     protected int radius;
-    protected int particleID;
+    protected int ID;
     protected int obstacleSizeIterator = 0;
     protected int collisionCounter = 0;
     protected Color rigidBodyColor;
-
+    public int maxObstacleRadius = 100;
 
     public abstract void draw(Graphics g);
 
     public abstract void changeSize();
 
     public abstract void move();
+
+    public abstract boolean kill();
 
 
 
@@ -51,6 +53,8 @@ public abstract class RigidBody {
     }
 
     public int getRadius() { return radius; }
+
+    public int getMaxObstacleRadius() {return maxObstacleRadius; }
 }
 
 
