@@ -1,25 +1,41 @@
 import java.awt.*;
 
+/**
+ * Konstruktor RigidBody
+ */
+
 public abstract class RigidBody {
     protected double x, y;
     protected double xVelocity, yVelocity, velocity;
     protected int radius;
     protected int ID;
-    protected int obstacleSizeIterator = 0;
     protected int collisionCounter = 0;
-    protected Color rigidBodyColor;
     public int maxObstacleRadius = 100;
 
+    /**
+     * Rysowanie RigidBody
+     */
     public abstract void draw(Graphics g);
 
+    /**
+     * Zmiana rozmiaru RigidBody
+     */
     public abstract void changeSize();
 
+    /**
+     * Poruszanie się RigidBody
+     */
     public abstract void move();
 
+    /**
+     * Warunek zabicia RigidBody
+     */
     public abstract boolean kill();
 
 
-
+    /**
+     * Gettery i settery
+     */
     public void setXPosition(double newX) {
         this.x = newX;
     }

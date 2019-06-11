@@ -1,10 +1,12 @@
 import java.awt.*;
-import java.util.*;
-import java.util.Random;
+
+/**
+ * Klasa cząstki
+ */
 
 public class Particle extends RigidBody {
 
-
+    //Konstruktor Particle z niezbędnymi parametrami
     public Particle(double x, double y, int radius, double velocity, double angle, int ID) {
         this.x = x;
         this.y = y;
@@ -14,6 +16,8 @@ public class Particle extends RigidBody {
         this.radius = radius;
         this.ID = ID;
     }
+
+    //Metoda rysująca Particle
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -25,12 +29,14 @@ public class Particle extends RigidBody {
         g.drawString(ID, (int) x - 5, (int) y + 5);
     }
 
-
+    //Metoda od ruchu Particle
     public void move() {
 
         x += xVelocity;
         y += yVelocity;
 
+
+        //Zachowanie przy zderzeniu ze ścianą
         if (x + radius + 2 > 1000) {
             xVelocity = -xVelocity;
             x = 1000 - radius - 2 - 1;
@@ -49,10 +55,13 @@ public class Particle extends RigidBody {
         }
 
     }
+
+    //Metoda od zmiany rozmiaru
     public void changeSize(){
         radius--;
     }
 
+    //Metoda sprawdzająca czy Particle może zostać zabity
     public boolean kill(){
         if (radius <= 2){
             return true;

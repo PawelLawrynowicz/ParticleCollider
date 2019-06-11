@@ -3,9 +3,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Klasa odpowiedzialna za zbieranie danych, rysowanie ich oraz ich zapis do pliku
+ */
+
 public class DataCollector {
     static private long startTime = System.currentTimeMillis();
 
+    /**
+     * Rysowanie danych
+     */
     static public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         String howManyCollisions = Integer.toString(Simulation.getCollisions());
@@ -16,6 +23,9 @@ public class DataCollector {
         g.drawString("Particles destroyed: " + howManyDestroyed, 1020, 60);
     }
 
+    /**
+     * Zapis do pliku .txt (o nazwie Data)
+     */
     void saveToFile() throws IOException {
         String fileContent = Integer.toString(Simulation.getCollisions());
         BufferedWriter writer = new BufferedWriter(new FileWriter("Data.txt"));
@@ -23,6 +33,9 @@ public class DataCollector {
         writer.close();
     }
 
+    /**
+     * Funkcja zwracająca aktualny czas trwania symulacji w sekundach
+     */
     public static long getCurrentTime() {
         return (System.currentTimeMillis() - startTime) / 1000;
     }
