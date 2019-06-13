@@ -1,11 +1,9 @@
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 
 /**
- * Klasa przeszkody
- */
-
+ * Klasa przeszkody */
 public class Obstacle extends RigidBody {
-
 
     /**Konstruktor przeszkody z niezbednymi parametrami
      *
@@ -27,14 +25,14 @@ public class Obstacle extends RigidBody {
         super.draw(g, color);
     }
 
-    /** !!!POLIMORFIZM!!! Metoda odpowiedzialna za inkrementacje promienia przeszkody */
+    /** POLIMORFIZM Metoda odpowiedzialna za inkrementacje promienia przeszkody */
     public void changeSize(){
         collisionCounter++;
         if(collisionCounter<= maxObstacleRadius)
             radius++;
     }
 
-    /** Metoda opisująca brak ruchu przeszkody */
+    /** Metoda opisujaca brak ruchu przeszkody */
     public void move(){
         xVelocity = 0;
         yVelocity = 0;

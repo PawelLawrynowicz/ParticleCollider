@@ -1,6 +1,8 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-/** Klasa odpowiedzialna */
+/** Klasa odpowiedzialna za tworzenie okna symulacji */
 
 public class Window extends JPanel {
 

@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 
 /**
  * Klasa czastki
@@ -59,7 +60,7 @@ public class Particle extends RigidBody {
 
     }
 
-    /** !!!POLIMORFIZM!!! Metoda odpowiedzialna za dekrementacje promienia czasteczki */
+    /** POLIMORFIZM Metoda odpowiedzialna za dekrementacje promienia czasteczki */
     public void changeSize(){
         radius--;
     }

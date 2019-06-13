@@ -1,9 +1,7 @@
 import java.awt.*;
 
 /**
- * Klasa odpowiadająca za rysowania tła
- */
-
+ * Klasa odpowiadajaca za rysowania tla */
 public class Environment {
     private int xStart, xEnd, yStart, yEnd;
     private Color fill, frame;

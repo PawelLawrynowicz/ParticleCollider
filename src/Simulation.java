@@ -1,8 +1,10 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * Logika oraz wyswietlanie calej symulacji

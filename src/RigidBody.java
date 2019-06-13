@@ -1,5 +1,7 @@
-import java.awt.*;
-
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 /**
  * Klasa abstrakcyjna rigidBody (bryly sztywnej)
@@ -9,12 +11,14 @@ public abstract class RigidBody {
     protected double xVelocity, yVelocity, velocity;
     protected int radius;
     protected int ID;
+    /** Licznik kolizji */
     protected int collisionCounter = 0;
+    /** Maksymalny promien przeszkod */
     public int maxObstacleRadius = 100;
 
     /**
      * Rysowanie RigidBody
-     * Wlączane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
+     * Wlaczane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
      */
      public void draw(Graphics g,  Color color){
         Graphics2D g2d = (Graphics2D) g;
