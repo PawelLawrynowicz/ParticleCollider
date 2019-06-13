@@ -1,18 +1,18 @@
 import java.awt.*;
 
 /**
- * Klasa cząstki
+ * Klasa czastki
  */
 public class Particle extends RigidBody {
 
-    /**Konstruktor Particle z niezbędnymi parametrami
+    /**Konstruktor Particle z niezbednymi parametrami
      *
-     * @param x - pozycja x cząsteczki
-     * @param y - pozycja y cząsteczki
-     * @param radius - promień cząsteczki
-     * @param velocity - prędkość początkowa cząsteczki
-     * @param angle - kąt, który opisuje kierunek poruszania sie cząsteczki przy jej spawnowaniu
-     * @param ID - numer cząsteczki
+     * @param x pozycja x czasteczki
+     * @param y pozycja y czasteczki
+     * @param radius promien cząsteczki
+     * @param velocity prędkosc poczatkowa czasteczki
+     * @param angle kat, ktory opisuje kierunek poruszania sie czasteczki przy jej spawnowaniu
+     * @param ID numer czasteczki
      */
     public Particle(double x, double y, int radius, double velocity, double angle, int ID) {
         this.x = x;
@@ -24,21 +24,20 @@ public class Particle extends RigidBody {
         this.ID = ID;
     }
 
-    /**Metoda rysująca Particle**/
+    /**Rysowanie czasteczki*/
     @Override
     public void draw(Graphics g, Color color) {
         super.draw(g, color);
     }
 
-    /**Metoda odpowiedzialna za ruch cząsteczki
-     * Włączane jest wygładzanie krawędzi, wybierany kolor wnętrza cząsteczki, kolor ramki oraz wypisywane na niej własnego ID
-     * Pilnowane również jest to, aby cząstka nie wyleciała za ramke
+    /**Metoda odpowiedzialna za ruch czasteczki
+     * Wlaczane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
+     * Pilnowane rowniez jest to, aby czastka nie wyleciala za ramke
      */
     public void move() {
 
         x += xVelocity;
         y += yVelocity;
-
 
         //Zachowanie przy spotkaniu ze ścianą
         if (x + radius + 2 > 1000) {
@@ -60,12 +59,12 @@ public class Particle extends RigidBody {
 
     }
 
-    /** Metoda odpowiedzialna za dekrementację rozmiaru cząsteczki */
+    /** !!!POLIMORFIZM!!! Metoda odpowiedzialna za dekrementacje promienia czasteczki */
     public void changeSize(){
         radius--;
     }
 
-    /** Metoda która mówi kiedy cząsteczka może zostać zabita */
+    /** Metoda ktora mowi kiedy czasteczka moze zostac zabita */
     public boolean kill(){
         if (radius <= 2){
             return true;

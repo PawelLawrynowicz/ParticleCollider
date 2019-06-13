@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+/** Klasa odpowiedzialna */
 
 public class Window extends JPanel {
 
@@ -9,14 +10,13 @@ public class Window extends JPanel {
 
 
     /**
-     * Tworzenie okna, w którym użytkownik inicjuje wartość cząstek
+     * Tworzenie okna, w ktorym uzytkownik inicjuje wartosc czastek
      */
-
     private void inputWindow(){
         JFrame inputWindow = new JFrame();
         boolean incorrectAmountOfParticles = true;
-            while(incorrectAmountOfParticles){
 
+            while(incorrectAmountOfParticles){
                     //Metoda od tworzenia okna
                     String inputS = JOptionPane.showInputDialog(inputWindow, "Insert amount of particles (between 1 and 200)");
                     int i = Integer.parseInt(inputS);
@@ -30,12 +30,12 @@ public class Window extends JPanel {
     }
 
     /**
-     * Tworzenie okna, w odbędzie się symulacja
+     * Tworzenie okna, w ktorym odbedzie się symulacja
      */
-
     private void simulationStartUp() {
 
-        /*Robienie nowego okna symulacji określane są:
+        /*
+        Robienie nowego okna symulacji określane są:
         jego nazwa,
         sposób zamykania,
         dodanie Simulation do okna,
@@ -54,9 +54,6 @@ public class Window extends JPanel {
 
     }
 
-    /**
-     * Metoda main()
-     */
 
     public static void main(String[] args) {
         Window window = new Window();

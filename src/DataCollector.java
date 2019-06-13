@@ -6,7 +6,6 @@ import java.io.IOException;
 /**
  * Klasa odpowiedzialna za zbieranie danych, rysowanie ich oraz ich zapis do pliku
  */
-
 public class DataCollector {
     static private long startTime = System.currentTimeMillis();
 
@@ -24,7 +23,7 @@ public class DataCollector {
     }
 
     /**
-     * Zapis do pliku .txt (o nazwie Data)
+     * Zapis danych wyniku symulacji do pliku Data.txt
      */
     public void saveToFile() throws IOException {
         String fileContent = Integer.toString(Simulation.getCollisions());
@@ -34,7 +33,7 @@ public class DataCollector {
     }
 
     /**
-     * Funkcja zwracająca aktualny czas trwania symulacji w sekundach
+     * Funkcja zwracajaca aktualny czas trwania symulacji w sekundach
      */
     public static long getCurrentTime() {
         return (System.currentTimeMillis() - startTime) / 1000;

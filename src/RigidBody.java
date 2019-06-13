@@ -1,9 +1,9 @@
 import java.awt.*;
 
-/**
- * Konstruktor RigidBody
- */
 
+/**
+ * Klasa abstrakcyjna rigidBody (bryly sztywnej)
+ */
 public abstract class RigidBody {
     protected double x, y;
     protected double xVelocity, yVelocity, velocity;
@@ -14,7 +14,7 @@ public abstract class RigidBody {
 
     /**
      * Rysowanie RigidBody
-     * Włączane jest wygładzanie krawędzi, wybierany kolor wnętrza cząsteczki, kolor ramki oraz wypisywane na niej własnego ID
+     * Wlączane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
      */
      public void draw(Graphics g,  Color color){
         Graphics2D g2d = (Graphics2D) g;
@@ -32,8 +32,8 @@ public abstract class RigidBody {
      */
     public abstract void changeSize();
 
-    /**+
-     * Poruszanie się RigidBody
+    /**
+     * Poruszanie sie RigidBody
      */
     public abstract void move();
 
@@ -43,9 +43,6 @@ public abstract class RigidBody {
     public abstract boolean kill();
 
 
-    /**
-     * Gettery i settery
-     */
     public void setXPosition(double newX) {
         this.x = newX;
     }

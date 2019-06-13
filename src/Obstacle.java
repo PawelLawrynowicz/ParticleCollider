@@ -1,14 +1,18 @@
 import java.awt.*;
 
+/**
+ * Klasa przeszkody
+ */
+
 public class Obstacle extends RigidBody {
 
 
-    /**Konstruktor przeszkody z niezbędnymi parametrami
+    /**Konstruktor przeszkody z niezbednymi parametrami
      *
-     * @param x - pozycja x przeszkody
-     * @param y - pozycja y przeszkody
-     * @param radius - promień przeszkody
-     * @param ID - ID przeszkody
+     * @param x pozycja x przeszkody
+     * @param y pozycja y przeszkody
+     * @param radius promien przeszkody
+     * @param ID ID przeszkody
      */
     public Obstacle(double x, double y, int radius, int ID) {
         this.x = x;
@@ -17,26 +21,26 @@ public class Obstacle extends RigidBody {
         this.ID = ID;
     }
 
+    /** Rysowanie przeszkody*/
     @Override
     public void draw(Graphics g, Color color) {
         super.draw(g, color);
     }
 
-
-    /** Metoda odpowiedzialna za inkrementację cząsteczki */
+    /** !!!POLIMORFIZM!!! Metoda odpowiedzialna za inkrementacje promienia przeszkody */
     public void changeSize(){
         collisionCounter++;
         if(collisionCounter<= maxObstacleRadius)
             radius++;
     }
 
-    //Metoda od ruchu Obstacle
+    /** Metoda opisująca brak ruchu przeszkody */
     public void move(){
         xVelocity = 0;
         yVelocity = 0;
     }
 
-    /** Metoda która mówi kiedy cząsteczka może zostać zabita */
+    /** Metoda ktora mowi kiedy przeszkoda moze zostac zabita */
     public boolean kill(){
         return false;
     }
