@@ -5,16 +5,16 @@ import java.util.Random;
 import javax.swing.*;
 
 /**
- * Logika oraz wyświetlanie całej symulacji
+ * Logika oraz wyswietlanie calej symulacji
  */
 
 public class Simulation extends Window {
 
-    //Tło do symulacji i do wyświetlania danych
+    /**Tlo do symulacji i do wyswietlania danych*/
     private Environment particleEnvironment;
     private Environment dataEnvironment;
 
-    // Ilość, wielkość oraz prędkość cząstek i przeszkód
+    /**Ilosc, wielkosc oraz predkosc czastek i przeszkod*/
     static private int obstacleCount = 15;
     static private int rigidBodyCount = obstacleCount + particleCount;
     static private int destroyedCount = 0;
@@ -37,7 +37,7 @@ public class Simulation extends Window {
     }
 
     /**
-     * Pętla symulacji
+     * Petla symulacji
      */
     private void start() {
         Thread thread = new Thread() {
@@ -67,7 +67,7 @@ public class Simulation extends Window {
 
 
     /**
-     * Co dzieje się co klatkę
+     * Co dzieje sie co klatke
      */
     private void update() {
         for (int i = 0; i < particleCount; i++) {
@@ -79,12 +79,12 @@ public class Simulation extends Window {
     }
 
     /**
-     * Spawnowanie przeszkód, cząsteczek i teł
+     * Spawnowanie przeszkod, czasteczek i tel
      */
     private void initiateSimulation() {
         Random generator = new Random();
 
-        //Inicjowanie cząstek
+        /**Inicjowanie czastek*/
         int ID = 0;
         for (int i = 0; i < particleCount; i++) {
             double x = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
@@ -94,7 +94,7 @@ public class Simulation extends Window {
             ID++;
         }
 
-        //Inicjowanie przeszkód
+        /**Inicjowanie przeszkod*/
         ID = 0;
         for (int i = 0; i < obstacleCount; i++) {
             double x = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
@@ -103,7 +103,7 @@ public class Simulation extends Window {
             ID++;
         }
 
-        //Inicjowanie teł
+        //Inicjowanie tel
         particleEnvironment = new Environment(0, 0, 1000, 1000, Color.lightGray, Color.black);
         dataEnvironment = new Environment(1010, 0, 500, 1000, Color.darkGray, Color.black);
     }
@@ -112,7 +112,7 @@ public class Simulation extends Window {
      * Panel do rysowania
      */
     class Panel extends JPanel {
-        //Wywoływanie metod draw() obiektów w odpowiedniej kolejności
+        /**Wywolywanie metod draw() obiektow w odpowiedniej kolejnosci*/
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -132,13 +132,17 @@ public class Simulation extends Window {
     }
 
     /**
-     * Detekcja kolizji oraz opisanie zachowania po niej
+     * Zderzenia czastek z czastkami i przeszkodami. Badanie czy zachodzi zderzenie, jezeli tak obliczana jest nowa predkosc dla zderzajacych sie obiektow.
+     * Do ustalenia nowych predkosci uzywamy macierzy przejscia R^2 -> R^2. "Obracamy" uklad wspolrzednych tak, aby wektor predkosci wyznaczal os X.
+     * Nastepnie sprawdzamy czy jest to kolizja czastka-czastka, czy nie.
+     * Potem rozbijamy predkosc w nowym ukladzie wspolrzednych na skladowe i obliczamy predkosci po zderzeniu.
+     * Na samym końcu metody rozdzielamy czastki, aby nie nachodzily na siebie po zderzeniu.
      */
     private void handleCollision() {
         for (int i = 0; i < particleCount; i++) {
             for (int j = i + 1; j < rigidBodyCount; j++) {
 
-                //Pobranie pozycji oraz promieni obiektów
+                //Pobranie pozycji oraz promieni obiektow
                 double x2 = rigidBodies.get(i).getXPosition();
                 double y2 = rigidBodies.get(i).getYPosition();
                 double x1 = rigidBodies.get(j).getXPosition();
@@ -146,7 +150,7 @@ public class Simulation extends Window {
                 int r1 = rigidBodies.get(i).getRadius();
                 int r2 = rigidBodies.get(j).getRadius();
 
-                //Obliczenie dystansu między każdym a każdym obiektem (między ich środkami). Kiedy znamy dystans między A a B, nie liczyby dystansu między B a A.
+                //Obliczenie dystansu miedzy kazdym a kazdym obiektem (miedzy ich srodkami). Kiedy znamy dystans miedzy A a B, nie liczyby dystansu miedzy B a A.
                 double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 
                 if (distance - (r1 + r2) < 0) {
@@ -156,27 +160,27 @@ public class Simulation extends Window {
                     double collisionVectorX = x2 - x1;
                     double theta = Math.atan2(collisionVectorY, collisionVectorX);
 
-                    // Wektory prędkości pierwszego ciała po obróceniu układu współrzędnych
+                    // Wektory predkosci pierwszego ciala po obroceniu ukladu wspolrzednych
                     double tempVX1 = Math.cos(theta) * rigidBodies.get(i).getXVelocity() + Math.sin(theta) * rigidBodies.get(i).getYVelocity();
                     double tempVY1 = -Math.sin(theta) * rigidBodies.get(i).getXVelocity() + Math.cos(theta) * rigidBodies.get(i).getYVelocity();
 
-                    // Wektory prędkości po zderzeniu
+                    // Wektory predkosci po zderzeniu
                     double endVX1, endVY1, endVX2, endVY2;
 
                     // Zderzenie Particle-Particle
                     if (j < particleCount) {
 
-                        // Wektory prędkości drugiego ciała po obróceniu układu współrzędnych
+                        // Wektory predkosci drugiego ciala po obroceniu ukladu wspolrzednych
                         double tempVX2 = Math.cos(theta) * rigidBodies.get(j).getXVelocity() + Math.sin(theta) * rigidBodies.get(j).getYVelocity();
                         double tempVY2 = -Math.sin(theta) * rigidBodies.get(j).getXVelocity() + Math.cos(theta) * rigidBodies.get(j).getYVelocity();
 
-                        // Obrócenie układu z powrotem
+                        // Obrocenie ukladu z powrotem
                         endVX1 = Math.cos(theta) * tempVX2 - Math.sin(theta) * tempVY1;
                         endVY1 = Math.sin(theta) * tempVX2 + Math.cos(theta) * tempVY1;
                         endVX2 = Math.cos(theta) * tempVX1 - Math.sin(theta) * tempVY2;
                         endVY2 = Math.sin(theta) * tempVX1 + Math.cos(theta) * tempVY2;
 
-                        // Przypisanie nowych prędkości
+                        // Przypisanie nowych predkosci
                         rigidBodies.get(j).setXVelocity(endVX2);
                         rigidBodies.get(j).setYVelocity(endVY2);
 
@@ -185,10 +189,10 @@ public class Simulation extends Window {
                     // Zderzenie Particle-Obstacle
                     else {
 
-                        // Wektory prędkości pierwszego ciała po obróceniu układu współrzędnych
+                        // Wektory predkosci pierwszego ciala po obroceniu ukladu wspolrzednych
                         tempVX1 = -tempVX1;
 
-                        // Obrócenie układu z powrotem
+                        // Obrocenie ukladu z powrotem
                         endVX1 = Math.cos(theta) * tempVX1 - Math.sin(theta) * tempVY1;
                         endVY1 = Math.sin(theta) * tempVX1 + Math.cos(theta) * tempVY1;
 
@@ -200,22 +204,22 @@ public class Simulation extends Window {
                         collisions++;
                     }
 
-                    // Przypisanie nowych prędkości
+                    // Przypisanie nowych predkosci
                     rigidBodies.get(i).setXVelocity(endVX1);
                     rigidBodies.get(i).setYVelocity(endVY1);
 
-                    //Naprawa glitcha ze sklejającymi się kulkami
-                    // Przesuwamy oba obiekty o ich część wspólną
+                    //Naprawa glitcha ze sklejajacymi sie kulkami
+                    // Przesuwamy oba obiekty o ich czesc wspolna
                     double tempX = Math.cos(theta) * x2 + Math.sin(theta) * y2;
                     double tempY = -Math.sin(theta) * x2 + Math.cos(theta) * y2;
                     double overlap = r1 + r2 - distance + 1;
                     double newX = tempX + overlap;
 
-                    // Obrócenie układu współrzędnych o kąt -theta
+                    // Obrocenie ukladu wspolrzednych o kat -theta
                     double endX = Math.cos(theta) * newX - Math.sin(theta) * tempY;
                     double endY = Math.sin(theta) * newX + Math.cos(theta) * tempY;
 
-                    //Ustawienie cząstek na nowych pozycjach
+                    //Ustawienie czastek na nowych pozycjach
                     rigidBodies.get(i).setXPosition(endX);
                     rigidBodies.get(i).setYPosition(endY);
                 }
@@ -226,10 +230,10 @@ public class Simulation extends Window {
     }
 
     /**
-     * Sprawdzenie czy cząsteczka może zostać usunięta
+     * Usuniecie czastki
      */
     private void handleRemoval() {
-        //Dla każdego Particle sprawdzane jest czy można go zabić, jeśli tak to jest usuwany z tablicy
+        //Dla kazdego Particle sprawdzane jest czy mozna go zabic, jesli tak to jest usuwany z tablicy
         for (int i = 0; i < particleCount; i++) {
             if (rigidBodies.get(i).kill()) {
                 rigidBodies.remove(rigidBodies.get(i));
@@ -245,7 +249,7 @@ public class Simulation extends Window {
      */
     private boolean endSimulation() {
 
-        //Symulacja kończy się, gdy czas przekroczy 120s, wszystkie cząstku umrą lub wszystkie przeszkody urosną maksymalnie
+        //Symulacja kończy sie, gdy czas przekroczy 120s, wszystkie czastku umra lub wszystkie przeszkody urosna maksymalnie
         int totalObstacleRadius = 0;
         for (int i = particleCount; i < rigidBodyCount; i++) {
             totalObstacleRadius += rigidBodies.get(i).getRadius();
@@ -263,11 +267,6 @@ public class Simulation extends Window {
         }
         return false;
     }
-
-
-    /**
-     * Gettery
-     */
 
     static public int getCollisions() {
         return collisions;
