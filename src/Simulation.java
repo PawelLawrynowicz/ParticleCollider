@@ -6,28 +6,22 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
 
-/**
- * Logika oraz wyswietlanie calej symulacji
- */
-
+/** Logika oraz wyswietlanie calej symulacji*/
 public class Simulation extends Window {
 
-    /**Tlo do symulacji i do wyswietlania danych*/
+    /*Tlo do symulacji i do wyswietlania danych*/
     private Environment particleEnvironment;
     private Environment dataEnvironment;
 
-    /**Ilosc, wielkosc oraz predkosc czastek i przeszkod*/
+    /*Ilosc, wielkosc oraz predkosc czastek i przeszkod*/
     static private int obstacleCount = 15;
     static private int rigidBodyCount = obstacleCount + particleCount;
     static private int destroyedCount = 0;
-
     private int particleRadius = 20;
     private int obstacleRadius = 10;
     private double particleVelocity = 10d;
-
     private ArrayList<RigidBody> rigidBodies = new ArrayList<>();
-    static private int collisions = 0;
-
+    static private int collisions;
     private static String endCause;
 
     public Simulation() {
@@ -86,7 +80,7 @@ public class Simulation extends Window {
     private void initiateSimulation() {
         Random generator = new Random();
 
-        /**Inicjowanie czastek*/
+        /*Inicjowanie czastek*/
         int ID = 0;
         for (int i = 0; i < particleCount; i++) {
             double x = generator.nextDouble() * 1000 - particleRadius + 1 + particleRadius;
@@ -96,7 +90,7 @@ public class Simulation extends Window {
             ID++;
         }
 
-        /**Inicjowanie przeszkod*/
+        /*Inicjowanie przeszkod*/
         ID = 0;
         for (int i = 0; i < obstacleCount; i++) {
             double x = generator.nextDouble() * (1000 - 2 * (100 + obstacleRadius)) + 100 + obstacleRadius;
@@ -105,7 +99,7 @@ public class Simulation extends Window {
             ID++;
         }
 
-        //Inicjowanie tel
+        /*Inicjowanie teł*/
         particleEnvironment = new Environment(0, 0, 1000, 1000, Color.lightGray, Color.black);
         dataEnvironment = new Environment(1010, 0, 500, 1000, Color.darkGray, Color.black);
     }
