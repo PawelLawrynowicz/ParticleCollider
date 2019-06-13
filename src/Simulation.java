@@ -119,7 +119,13 @@ public class Simulation extends Window {
             particleEnvironment.draw(g);
             dataEnvironment.draw(g);
             for (int i = 0; i < rigidBodies.size(); i++) {
-                rigidBodies.get(i).draw(g);
+                if (i < particleCount){
+                    rigidBodies.get(i).draw(g, Color.red);
+                }
+                else{
+                    rigidBodies.get(i).draw(g, Color.darkGray);
+                }
+
             }
             DataCollector.draw(g);
         }
@@ -140,7 +146,7 @@ public class Simulation extends Window {
                 int r1 = rigidBodies.get(i).getRadius();
                 int r2 = rigidBodies.get(j).getRadius();
 
-                //Obliczenie dystansu między każdym a każdym obiektem (między ich środkami)
+                //Obliczenie dystansu między każdym a każdym obiektem (między ich środkami). Kiedy znamy dystans między A a B, nie liczyby dystansu między B a A.
                 double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 
                 if (distance - (r1 + r2) < 0) {

@@ -26,7 +26,7 @@ public class DataCollector {
     /**
      * Zapis do pliku .txt (o nazwie Data)
      */
-    void saveToFile() throws IOException {
+    public void saveToFile() throws IOException {
         String fileContent = Integer.toString(Simulation.getCollisions());
         BufferedWriter writer = new BufferedWriter(new FileWriter("Data.txt"));
         writer.write("Liczba kolizji: " + fileContent + '\n' + "Czas symulacji: " + (System.currentTimeMillis() - startTime) / 1000 + "s" + '\n' + "Wynik: " + Simulation.getEndCause());

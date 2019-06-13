@@ -2,11 +2,14 @@ import java.awt.*;
 
 public class Obstacle extends RigidBody {
 
-    /**
-     * Klasa przeszkody
-     */
 
-    //Konstruktor Obstacle z niezbędnymi parametrami
+    /**Konstruktor przeszkody z niezbędnymi parametrami
+     *
+     * @param x - pozycja x przeszkody
+     * @param y - pozycja y przeszkody
+     * @param radius - promień przeszkody
+     * @param ID - ID przeszkody
+     */
     public Obstacle(double x, double y, int radius, int ID) {
         this.x = x;
         this.y = y;
@@ -14,20 +17,13 @@ public class Obstacle extends RigidBody {
         this.ID = ID;
     }
 
-    //Metoda rysująca Obstacle
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(Color.darkGray);
-        g.fillOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
-        g.setColor(Color.black);
-        g.drawOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
-
-        String ID = Integer.toString(this.ID);
-        g.drawString(ID, (int) x - 5, (int) y + 5);
+    @Override
+    public void draw(Graphics g, Color color) {
+        super.draw(g, color);
     }
 
-    //Metoda od zmiany rozmiaru
+
+    /** Metoda odpowiedzialna za inkrementację cząsteczki */
     public void changeSize(){
         collisionCounter++;
         if(collisionCounter<= maxObstacleRadius)
@@ -40,7 +36,7 @@ public class Obstacle extends RigidBody {
         yVelocity = 0;
     }
 
-    //Metoda sprawdzająca czy Obstacle może zostać zabity
+    /** Metoda która mówi kiedy cząsteczka może zostać zabita */
     public boolean kill(){
         return false;
     }

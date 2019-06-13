@@ -3,10 +3,17 @@ import java.awt.*;
 /**
  * Klasa cząstki
  */
-
 public class Particle extends RigidBody {
 
-    //Konstruktor Particle z niezbędnymi parametrami
+    /**Konstruktor Particle z niezbędnymi parametrami
+     *
+     * @param x - pozycja x cząsteczki
+     * @param y - pozycja y cząsteczki
+     * @param radius - promień cząsteczki
+     * @param velocity - prędkość początkowa cząsteczki
+     * @param angle - kąt, który opisuje kierunek poruszania sie cząsteczki przy jej spawnowaniu
+     * @param ID - numer cząsteczki
+     */
     public Particle(double x, double y, int radius, double velocity, double angle, int ID) {
         this.x = x;
         this.y = y;
@@ -17,26 +24,23 @@ public class Particle extends RigidBody {
         this.ID = ID;
     }
 
-    //Metoda rysująca Particle
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(Color.RED);
-        g.fillOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
-        g.setColor(Color.black);
-        g.drawOval((int) x - radius, (int) y - radius, 2 * radius, 2 * radius);
-        String ID = Integer.toString(this.ID);
-        g.drawString(ID, (int) x - 5, (int) y + 5);
+    /**Metoda rysująca Particle**/
+    @Override
+    public void draw(Graphics g, Color color) {
+        super.draw(g, color);
     }
 
-    //Metoda od ruchu Particle
+    /**Metoda odpowiedzialna za ruch cząsteczki
+     * Włączane jest wygładzanie krawędzi, wybierany kolor wnętrza cząsteczki, kolor ramki oraz wypisywane na niej własnego ID
+     * Pilnowane również jest to, aby cząstka nie wyleciała za ramke
+     */
     public void move() {
 
         x += xVelocity;
         y += yVelocity;
 
 
-        //Zachowanie przy zderzeniu ze ścianą
+        //Zachowanie przy spotkaniu ze ścianą
         if (x + radius + 2 > 1000) {
             xVelocity = -xVelocity;
             x = 1000 - radius - 2 - 1;
@@ -56,12 +60,12 @@ public class Particle extends RigidBody {
 
     }
 
-    //Metoda od zmiany rozmiaru
+    /** Metoda odpowiedzialna za dekrementację rozmiaru cząsteczki */
     public void changeSize(){
         radius--;
     }
 
-    //Metoda sprawdzająca czy Particle może zostać zabity
+    /** Metoda która mówi kiedy cząsteczka może zostać zabita */
     public boolean kill(){
         if (radius <= 2){
             return true;

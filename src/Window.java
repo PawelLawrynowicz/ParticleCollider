@@ -3,8 +3,8 @@ import javax.swing.*;
 
 public class Window extends JPanel {
 
-    static final int WIDTH = 1540;
-    static final int HEIGHT = 1080;
+    static private final int WIDTH = 1540;
+    static private final int HEIGHT = 1080;
     static public int particleCount;
 
 
@@ -12,7 +12,7 @@ public class Window extends JPanel {
      * Tworzenie okna, w którym użytkownik inicjuje wartość cząstek
      */
 
-    public void inputWindow(){
+    private void inputWindow(){
         JFrame inputWindow = new JFrame();
         boolean incorrectAmountOfParticles = true;
             while(incorrectAmountOfParticles){
@@ -33,7 +33,7 @@ public class Window extends JPanel {
      * Tworzenie okna, w odbędzie się symulacja
      */
 
-    public void simulationStartUp() {
+    private void simulationStartUp() {
 
         /*Robienie nowego okna symulacji określane są:
         jego nazwa,
