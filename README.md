@@ -12,8 +12,9 @@ Simulation then starts, the rules are:
 
     1. All objects realistically collide with each other
     2. The collisions are elastic 
-    3. On each "Particle -> Obstacle" collision Particle radius is reduced by 1 and Obstacle radius is increased by 1
-    4. Obstacles can only grow to a certain size
+    3. On each "Particle -> Obstacle" collision Particle radius is reduced by 1
+    4. On each "Particle -> Obstacle" collision Obstacle radius is increased by 1
+    5. Obstacles can only grow to a certain size
    
 The simulation ends when one of these conditions is true:
 
