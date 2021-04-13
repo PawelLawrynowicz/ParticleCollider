@@ -13,7 +13,7 @@ public class Particle extends RigidBody {
      * @param y position y of particle
      * @param radius particle radius
      * @param velocity particle initial velocity
-     * @param angle the angle between bottom screen border and particle velocity at spawn.
+     * @param angle the angle between bottom screen border and particle velocity at spawn
      * @param ID particle id
      */
     public Particle(double x, double y, int radius, double velocity, double angle, int ID) {
@@ -36,8 +36,6 @@ public class Particle extends RigidBody {
 
     /**
      * Method that determines particle movement.
-     * Wlaczane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
-     * Pilnowane rowniez jest to, aby czastka nie wyleciala za ramke
      */
     public void move() {
 
