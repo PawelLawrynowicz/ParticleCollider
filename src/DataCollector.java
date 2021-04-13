@@ -5,13 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Klasa odpowiedzialna za zbieranie danych, rysowanie ich oraz ich zapis do pliku
+ * Class responsible for gathering data, drawing and saving results to .txt file.
  */
 public class DataCollector {
     static private long startTime = System.currentTimeMillis();
 
     /**
-     * Rysowanie danych
+     * Drawing data.
      */
     static public void draw(Graphics g) {
         g.setColor(Color.WHITE);
@@ -24,7 +24,7 @@ public class DataCollector {
     }
 
     /**
-     * Zapis danych wyniku symulacji do pliku Data.txt
+     * Saving results of simulation to Data.txt file.
      */
     public void saveToFile() throws IOException {
         String fileContent = Integer.toString(Simulation.getCollisions());
@@ -34,7 +34,7 @@ public class DataCollector {
     }
 
     /**
-     * Funkcja zwracajaca aktualny czas trwania symulacji w sekundach
+     * Method returning time of simulation in seconds.
      */
     public static long getCurrentTime() {
         return (System.currentTimeMillis() - startTime) / 1000;
