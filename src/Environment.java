@@ -1,12 +1,15 @@
 import java.awt.*;
 
 /**
- * Klasa odpowiadajaca za rysowania tla */
+ * Class responsible for drawing background
+ */
 public class Environment {
     private int xStart, xEnd, yStart, yEnd;
     private Color fill, frame;
 
-    /** Konstruktor tla */
+    /*
+    * Construct for drawing background
+    */
     public Environment(int x, int y, int width, int height, Color fill, Color frame) {
         xStart = x;
         yStart = y;
@@ -15,7 +18,9 @@ public class Environment {
         this.fill = fill;
         this.frame = frame;
     }
-    /** Metoda opisujaca rysowanie tla */
+    /*
+    * Method that draws background
+    */
     public void draw(Graphics g) {
         g.setColor(fill);
         g.fillRect(xStart, yStart, xEnd - xStart - 1, yEnd - yStart - 1);
