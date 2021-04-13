@@ -2,18 +2,19 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 /**
- * Klasa czastki
+ * Particle class
  */
 public class Particle extends RigidBody {
 
-    /**Konstruktor Particle z niezbednymi parametrami
+    /**
+     * Particle constructor with necessary parameters.
      *
-     * @param x pozycja x czasteczki
-     * @param y pozycja y czasteczki
-     * @param radius promien cząsteczki
-     * @param velocity prędkosc poczatkowa czasteczki
-     * @param angle kat, ktory opisuje kierunek poruszania sie czasteczki przy jej spawnowaniu
-     * @param ID numer czasteczki
+     * @param x position x of particle
+     * @param y position y of particle
+     * @param radius particle radius
+     * @param velocity particle initial velocity
+     * @param angle the angle between bottom screen border and particle velocity at spawn.
+     * @param ID particle id
      */
     public Particle(double x, double y, int radius, double velocity, double angle, int ID) {
         this.x = x;
@@ -25,13 +26,16 @@ public class Particle extends RigidBody {
         this.ID = ID;
     }
 
-    /**Rysowanie czasteczki*/
+    /**
+     * Method that draws particle.
+     */
     @Override
     public void draw(Graphics g, Color color) {
         super.draw(g, color);
     }
 
-    /**Metoda odpowiedzialna za ruch czasteczki
+    /**
+     * Method that determines particle movement.
      * Wlaczane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
      * Pilnowane rowniez jest to, aby czastka nie wyleciala za ramke
      */
@@ -40,7 +44,7 @@ public class Particle extends RigidBody {
         x += xVelocity;
         y += yVelocity;
 
-        //Zachowanie przy spotkaniu ze ścianą
+        // Particle behaviour at collision with frame.
         if (x + radius + 2 > 1000) {
             xVelocity = -xVelocity;
             x = 1000 - radius - 2 - 1;
@@ -60,12 +64,17 @@ public class Particle extends RigidBody {
 
     }
 
-    /** POLIMORFIZM Metoda odpowiedzialna za dekrementacje promienia czasteczki */
+    /**
+     * Polimorphism
+     * Method responsible for decrementing particle radius.
+     */
     public void changeSize(){
         radius--;
     }
 
-    /** Metoda ktora mowi kiedy czasteczka moze zostac zabita */
+    /** 
+     * Method that determines if particle can be killed.
+     */
     public boolean kill(){
         if (radius <= 2){
             return true;
