@@ -40,7 +40,7 @@ public class Obstacle extends RigidBody {
     }
 
     /**
-     *  Metoda opisujaca brak ruchu przeszkody Method that determines obstacle stationarity.
+     * Method that determines obstacle stationarity.
      */
     public void move(){
         xVelocity = 0;
