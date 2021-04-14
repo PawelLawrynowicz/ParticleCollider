@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 /**
- * Klasa abstrakcyjna rigidBody (bryly sztywnej)
+ * Abstract class RigidBody.
  */
 public abstract class RigidBody {
     protected double x, y;
@@ -17,8 +17,8 @@ public abstract class RigidBody {
     public int maxObstacleRadius = 100;
 
     /**
-     * Rysowanie RigidBody
-     * Wlaczane jest wygladzanie krawedzi, wybierany kolor wnetrza czasteczki, kolor ramki oraz wypisywane na niej wlasnego ID
+     * Drawing RigidBody.
+     * Anti-aliasing is on, inner body and frame color is set and ID is assigned.
      */
      public void draw(Graphics g,  Color color){
         Graphics2D g2d = (Graphics2D) g;
@@ -32,17 +32,17 @@ public abstract class RigidBody {
     }
 
     /**
-     * Zmiana rozmiaru RigidBody
+     * Change of size of RigidBody.
      */
     public abstract void changeSize();
 
     /**
-     * Poruszanie sie RigidBody
+     * Movement of RigidBody.
      */
     public abstract void move();
 
     /**
-     * Warunek zabicia RigidBody
+     * Statement if RigidBody can be removed.
      */
     public abstract boolean kill();
 
